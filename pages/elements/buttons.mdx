@@ -1,88 +1,216 @@
 # Buttons
 
-Component Includes
+The `Button` component is a polymorphic button that renders as a `<Link>`, `<a>`, `<button>`, `<div>`, or `<span>` depending on the `tag` prop. It uses `class-variance-authority` (CVA) for variant management and `tailwind-merge` for class composition.
 
-```js {3} copy
+## Import
+
+```js copy
 import Button from "@/components/atoms/Button";
 ```
 
-## Primary Button
-Note: Need to fix the multiple padding top classes
+---
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `variant` | `ButtonVariants` | `"primary"` | Visual style of the button |
+| `tag` | `"Link" \| "button" \| "a" \| "div" \| "span"` | `"Link"` | The HTML element or Next.js Link to render |
+| `href` | `string` | — | Required when `tag="Link"` or `tag="a"` |
+| `target` | `string` | — | Link target (e.g. `"_blank"`) |
+| `className` | `string` | — | Additional classes merged via `twMerge` |
+| `arrowClassName` | `string` | — | Classes applied to the arrow icon in arrowed variants |
+| `rel` | `string` | — | Rel attribute for anchor elements |
+| `urlForwardedParams` | `{ sourceParamKey: string; targetParamKey: string }[]` | — | Forwards URL query params from the current page to the link `href` |
+
+---
+
+## Variants
+
+### Primary
+
+Solid orange background. The default call-to-action button.
 
 <div className="mb-5">
-  <a className="inline-block text-white px-7 pt-4 pt-[14px] pb-3 m-0 bg-[#cf4a29] rounded cursor-pointer border-2 border-[#cf4a29] font-bold duration-700 ease-in-out hover:rounded-[50px] active:scale-90 active:bg-orange-darker mr-5 mb-5 xl:mb-0" href="#">Primary Button</a>
+  <a className="inline-block text-white px-7 pt-[14px] pb-3 m-0 bg-[#cf4a29] rounded cursor-pointer border-2 border-[#cf4a29] font-bold duration-700 ease-in-out hover:rounded-[50px] active:scale-90" href="#">Primary Button</a>
 </div>
 
-Tailwind / Next.JS
-```js copy
-<Button className="
-  inline-block 
-  text-white 
-  px-7 
-  pt-4 
-  pt-[14px] 
-  pb-3 
-  m-0 
-  bg-orange 
-  rounded 
-  cursor-pointer 
-  border-2 
-  border-orange 
-  font-bold 
-  duration-700 
-  ease-in-out 
-  hover:rounded-[50px] 
-  active:scale-90 
-  active:bg-orange-darker"
-  href={}
-  variant="primary">
+```jsx copy
+<Button variant="primary" href="/some-path">
+  Primary Button
+</Button>
+```
+
+---
+
+### Outline
+
+Orange border with white background. Use for secondary actions alongside a primary button.
+
+<div className="mb-5">
+  <a className="inline-block text-[#cf4a29] px-7 pt-[14px] pb-3 bg-white rounded cursor-pointer border-2 border-[#cf4a29] font-bold duration-700 ease-in-out hover:rounded-[50px] active:scale-90" href="#">Outline Button</a>
+</div>
+
+```jsx copy
+<Button variant="outline" href="/some-path">
+  Outline Button
+</Button>
+```
+
+---
+
+### White
+
+White background with navy-blue text. Intended for use on dark or colored backgrounds.
+
+<div className="mb-5 p-6 bg-[#003359] inline-block rounded">
+  <a className="inline-block text-[#003359] font-bold px-7 pt-4 pb-3.5 bg-white rounded cursor-pointer duration-300 ease-in-out hover:rounded-[50px] active:scale-90" href="#">White Button</a>
+</div>
+
+```jsx copy
+<Button variant="white" href="/some-path">
+  White Button
+</Button>
+```
+
+---
+
+### White Border
+
+White background with a navy-blue border. On hover the button fills with navy-blue and text turns white.
+
+<div className="mb-5">
+  <a className="inline-block text-[#003359] font-bold px-7 pt-4 pb-3.5 bg-white rounded cursor-pointer border border-[#003359] duration-300 ease-in-out hover:bg-[#003359] hover:text-white active:scale-90" href="#">White Border Button</a>
+</div>
+
+```jsx copy
+<Button variant="white-border" href="/some-path">
+  White Border Button
+</Button>
+```
+
+---
+
+### Default
+
+Green primary background with white text. Used for default/fallback contexts.
+
+<div className="mb-5">
+  <a className="inline-block text-white font-bold px-7 pt-4 pb-3.5 bg-[#0D6061] rounded cursor-pointer active:scale-90" href="#">Default Button</a>
+</div>
+
+```jsx copy
+<Button variant="default" href="/some-path">
+  Default Button
+</Button>
+```
+
+---
+
+### Arrowed
+
+Inline text link with an animated arrow icon. Arrow rotates 45° on hover.
+
+<div className="mb-5">
+  <a className="inline-flex gap-2 items-center text-[#cf4a29] font-bold cursor-pointer group active:scale-90 ease-in-out duration-300" href="#">
     Learn More
-</Button>
-```
-Dev: How to use it in a component
-```js copy
-<Button variant="primary" href={}>
-  Button Text
-</Button>
-```
-
-### Variant Buttons
-
-#### Outline Button
-
-Tailwind / Next.JS Code
-```js copy
-<Button className="
-    inline-block 
-    text-[#cf4a29] 
-    px-7 
-    pt-4 
-    pt-[14px] 
-    pb-3 
-    bg-white 
-    rounded 
-    cursor-pointer 
-    border-2 
-    border-[#cf4a29] 
-    font-bold 
-    duration-700 
-    ease-in-out 
-    hover:rounded-[50px] 
-    active:scale-90"
-    href="">
-    Outline Button
-</Button>
-```
-<div className="mb-5">
-<a className="inline-block text-[#cf4a29] px-7 pt-4 pt-[14px] pb-3 bg-white rounded cursor-pointer border-2 border-[#cf4a29] font-bold duration-700 ease-in-out hover:rounded-[50px] active:scale-90">Outline Button</a>
+    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" className="fill-[#cf4a29] inline-block" style={{transform: "rotate(0deg)", transition: "transform 300ms ease-in-out"}}><path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/></svg>
+  </a>
 </div>
 
-Dev: How to use it in a component
-```js copy
-<Button variant="outline" href="">
-  Button Text
+```jsx copy
+<Button variant="arrowed" href="/some-path">
+  Learn More
+</Button>
+
+{/* Custom arrow color */}
+<Button variant="arrowed" href="/some-path" arrowClassName="fill-navy-blue">
+  Learn More
 </Button>
 ```
 
+---
 
-add the rest of the buttons here
+### Arrowed Toggle Underline
+
+Arrow link with an animated underline that expands on parent hover. Designed for use inside a parent element with the `group` class. Text turns navy-blue on parent hover.
+
+```jsx copy
+{/* Parent must have className="group" */}
+<div className="group">
+  <Button variant="arrowed-toggle-underline" href="/some-path">
+    Learn More
+  </Button>
+</div>
+```
+
+---
+
+### Arrowed Toggle Underline White
+
+Same as `arrowed-toggle-underline` but text turns white on parent hover. Use on dark backgrounds.
+
+```jsx copy
+{/* Parent must have className="group" */}
+<div className="group bg-navy-blue p-4">
+  <Button variant="arrowed-toggle-underline-white" href="/some-path">
+    Learn More
+  </Button>
+</div>
+```
+
+---
+
+### Arrowed Alt
+
+Arrow link with a wide arrow icon that scales on hover. Suitable for high-emphasis text links, often on dark backgrounds.
+
+<div className="mb-5 p-6 bg-[#003359] inline-block rounded">
+  <a className="inline-flex gap-2 items-center text-white cursor-pointer active:scale-90" href="#">
+    Explore
+    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" className="fill-white inline-block"><path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"/></svg>
+  </a>
+</div>
+
+```jsx copy
+<Button variant="arrowed-alt" href="/some-path">
+  Explore
+</Button>
+```
+
+---
+
+## Rendering as a non-link element
+
+Use the `tag` prop to render a native `<button>`, `<div>`, or `<span>` instead of a Next.js `<Link>`. This is useful for buttons that trigger JS actions rather than navigation.
+
+```jsx copy
+{/* Native button element */}
+<Button variant="primary" tag="button" onClick={handleClick}>
+  Submit
+</Button>
+
+{/* Div wrapper (no navigation) */}
+<Button variant="outline" tag="div">
+  Label
+</Button>
+```
+
+---
+
+## Forwarding URL params
+
+`urlForwardedParams` copies query parameters from the current page URL into the button's `href`. Useful for preserving UTM or tracking params across navigation.
+
+```jsx copy
+<Button
+  variant="primary"
+  href="/signup"
+  urlForwardedParams={[
+    { sourceParamKey: "utm_source", targetParamKey: "utm_source" },
+    { sourceParamKey: "ref", targetParamKey: "ref" },
+  ]}
+>
+  Sign Up
+</Button>
+```
