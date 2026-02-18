@@ -1,14 +1,10 @@
 {
   "index": "Introduction",
+  "visual-styles": "Visual Styles",
+  "elements": "Elements",
   "components": "Components",
   "about": {
     "title": "About",
     "type": "page"
-  },
-  "contact": {
-    "title": "Contact ↗",
-    "type": "page",
-    "href": "https://twitter.com/shuding_",
-    "newWindow": true
   }
 }
