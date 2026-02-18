@@ -57,6 +57,11 @@ module.exports = {
 			"ap-8xl": ["6rem", "1"],
 			"ap-h4": ["1.625rem", "2.25rem"],
 		},
+		fontFamily: {
+			sans: ["museo-sans", "sans-serif"],
+			display: ["museo-sans-display", "sans-serif"],
+			"neulis-neue": ["neulis-neue", "sans-serif"],
+		}
   },
   plugins: []
 }
