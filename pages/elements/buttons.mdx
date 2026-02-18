@@ -12,22 +12,77 @@ Note: Need to fix the multiple padding top classes
 <div className="mb-5">
   <a className="inline-block text-white px-7 pt-4 pt-[14px] pb-3 m-0 bg-[#cf4a29] rounded cursor-pointer border-2 border-[#cf4a29] font-bold duration-700 ease-in-out hover:rounded-[50px] active:scale-90 active:bg-orange-darker mr-5 mb-5 xl:mb-0" href="#">Primary Button</a>
 </div>
+
+Tailwind / Next.JS
 ```js copy
-<Button className="inline-block text-white px-7 pt-4 pt-[14px] pb-3 m-0 bg-orange rounded cursor-pointer border-2 border-orange font-bold duration-700 ease-in-out hover:rounded-[50px] active:scale-90 active:bg-orange-darker">
-  Learn More
+<Button className="
+  inline-block 
+  text-white 
+  px-7 
+  pt-4 
+  pt-[14px] 
+  pb-3 
+  m-0 
+  bg-orange 
+  rounded 
+  cursor-pointer 
+  border-2 
+  border-orange 
+  font-bold 
+  duration-700 
+  ease-in-out 
+  hover:rounded-[50px] 
+  active:scale-90 
+  active:bg-orange-darker"
+  href={}
+  variant="primary">
+    Learn More
+</Button>
+```
+Dev: How to use it in a component
+```js copy
+<Button variant="primary" href={}>
+  Button Text
 </Button>
 ```
 
 ### Variant Buttons
 
 #### Outline Button
+
+Tailwind / Next.JS Code
 ```js copy
-<Button className="inline-block text-[#cf4a29] px-7 pt-4 pt-[14px] pb-3 bg-white rounded cursor-pointer border-2 border-[#cf4a29] font-bold duration-700 ease-in-out hover:rounded-[50px] active:scale-90">
-  Outline Button
+<Button className="
+    inline-block 
+    text-[#cf4a29] 
+    px-7 
+    pt-4 
+    pt-[14px] 
+    pb-3 
+    bg-white 
+    rounded 
+    cursor-pointer 
+    border-2 
+    border-[#cf4a29] 
+    font-bold 
+    duration-700 
+    ease-in-out 
+    hover:rounded-[50px] 
+    active:scale-90"
+    href="">
+    Outline Button
 </Button>
 ```
 <div className="mb-5">
 <a className="inline-block text-[#cf4a29] px-7 pt-4 pt-[14px] pb-3 bg-white rounded cursor-pointer border-2 border-[#cf4a29] font-bold duration-700 ease-in-out hover:rounded-[50px] active:scale-90">Outline Button</a>
 </div>
+
+Dev: How to use it in a component
+```js copy
+<Button variant="outline" href="">
+  Button Text
+</Button>
+```
+
 
 add the rest of the buttons here
