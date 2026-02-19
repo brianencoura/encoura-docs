@@ -27,6 +27,30 @@ import Button from "@/components/atoms/Button";
 
 ## Variants
 
+All variants are built from shared base classes with variant-specific additions.
+
+### Shared Base Classes
+
+**Block base** — used by `primary`, `outline`, `white`, `white-border`, `default`:
+
+```text copy
+inline-block font-bold px-7 rounded cursor-pointer active:scale-90
+```
+
+**Arrow base** — used by `arrowed`, `arrowed-toggle-underline`, `arrowed-toggle-underline-white`, `arrowed-alt`:
+
+```text copy
+inline-flex gap-2 items-center text-current font-bold cursor-pointer group active:scale-90 ease-in-out duration-300
+```
+
+**Underline base** — used by `arrowed-toggle-underline` and `arrowed-toggle-underline-white` (in addition to arrow base):
+
+```text copy
+mt-auto relative items-start after:content-[''] after:w-0 after:ease-in-out after:duration-500 after:absolute after:left-0 after:bottom-[-4px] after:bg-orange after:h-[2px] group-hover:text-orange group-hover:after:w-[78%]
+```
+
+---
+
 ### Primary
 
 Solid orange background. The default call-to-action button.
@@ -39,6 +63,12 @@ Solid orange background. The default call-to-action button.
 <Button variant="primary" href="/some-path">
   Primary Button
 </Button>
+```
+
+**Variant-specific classes** (+ block base):
+
+```text copy
+text-white pt-[14px] pb-3 m-0 bg-orange border-2 border-orange duration-700 ease-in-out hover:rounded-[50px] active:bg-orange-darker
 ```
 
 ---
@@ -57,6 +87,12 @@ Orange border with white background. Use for secondary actions alongside a prima
 </Button>
 ```
 
+**Variant-specific classes** (+ block base):
+
+```text copy
+text-orange pt-[14px] pb-3 bg-white border-2 border-orange duration-700 ease-in-out hover:rounded-[50px]
+```
+
 ---
 
 ### White
@@ -71,6 +107,12 @@ White background with navy-blue text. Intended for use on dark or colored backgr
 <Button variant="white" href="/some-path">
   White Button
 </Button>
+```
+
+**Variant-specific classes** (+ block base):
+
+```text copy
+text-navy-blue pt-4 pb-3.5 bg-white duration-300 ease-in-out hover:rounded-[50px]
 ```
 
 ---
@@ -89,6 +131,12 @@ White background with a navy-blue border. On hover the button fills with navy-bl
 </Button>
 ```
 
+**Variant-specific classes** (+ block base):
+
+```text copy
+text-navy-blue pt-4 pb-3.5 bg-white border-[1px] border-navy-blue duration-300 ease-in-out hover:bg-navy-blue hover:text-white
+```
+
 ---
 
 ### Default
@@ -103,6 +151,12 @@ Green primary background with white text. Used for default/fallback contexts.
 <Button variant="default" href="/some-path">
   Default Button
 </Button>
+```
+
+**Variant-specific classes** (+ block base):
+
+```text copy
+text-white pt-4 pb-3.5 bg-green-primary
 ```
 
 ---
@@ -129,6 +183,8 @@ Inline text link with an animated arrow icon. Arrow rotates 45° on hover.
 </Button>
 ```
 
+Uses **arrow base** only — no additional variant-specific classes.
+
 ---
 
 ### Arrowed Toggle Underline
@@ -144,6 +200,12 @@ Arrow link with an animated underline that expands on parent hover. Designed for
 </div>
 ```
 
+**Variant-specific classes** (+ arrow base + underline base):
+
+```text copy
+group-hover:!text-navy-blue
+```
+
 ---
 
 ### Arrowed Toggle Underline White
@@ -157,6 +219,12 @@ Same as `arrowed-toggle-underline` but text turns white on parent hover. Use on 
     Learn More
   </Button>
 </div>
+```
+
+**Variant-specific classes** (+ arrow base + underline base):
+
+```text copy
+group-hover:!text-white
 ```
 
 ---
@@ -177,6 +245,48 @@ Arrow link with a wide arrow icon that scales on hover. Suitable for high-emphas
   Explore
 </Button>
 ```
+
+**Variant-specific classes** (+ arrow base):
+
+```text copy
+group
+```
+
+---
+
+## Builder.io Usage
+
+The `Button` component is registered in Builder as **"Button"**. The content team can add it from the Insert panel in the Builder visual editor.
+
+### Available Fields
+
+| Field | Type | Default | Visibility | Description |
+|-------|------|---------|------------|-------------|
+| **Variant** | Select | `primary` | Always | Visual style — one of: `primary`, `outline`, `white`, `arrowed`, `arrowed-toggle-underline`, `arrowed-toggle-underline-white`, `arrowed-alt`, `white-border`, `default` |
+| **Tag** | Select | `Link` | Always | Underlying element — `Link`, `button`, `a`, `div`, or `span` |
+| **Link** (`href`) | URL | `https://google.com/` | When Tag = `Link` | Destination URL for the button |
+| **Text** (`children`) | String | `"Button"` | Always | The button label text |
+| **URL Forwarded Params** | List | — | When Tag = `Link` | Forwards query params from the current page URL to the link (see below) |
+| **Arrow Class Name** | String | `"arrow"` | Advanced | Custom class for the arrow icon in arrowed variants |
+| **rel** | String | — | Advanced | Anchor `rel` attribute (e.g. `"noopener noreferrer"`) |
+| **target** | String | — | Advanced | Anchor `target` attribute (e.g. `"_blank"`) |
+
+### URL Forwarded Params
+
+Each entry in the list has two fields:
+
+- **sourceParamKey** — The query param key to read from the current page URL (e.g. `"source"` reads from `www.encoura.org?source=123`)
+- **targetParamKey** — The query param key to append to the button's `href` (e.g. `"target"` produces `www.targetLink.com?target=123`)
+
+### Quick Reference for Content Team
+
+1. **Insert** the Button component from the Builder insert panel
+2. **Pick a variant** from the dropdown — preview updates live
+3. **Set the link** URL if using the default `Link` tag
+4. **Type the label** in the Text field
+5. For buttons that trigger JS actions (no navigation), change **Tag** to `button`
+6. To open links in a new tab, expand **Advanced** and set **target** to `_blank`
+7. To pass tracking params through, add entries to **URL Forwarded Params**
 
 ---
 

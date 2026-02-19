@@ -1,0 +1,112 @@
+# Rive Animations
+
+The `RiveAnimation` component renders [Rive](https://rive.app/) animations with lazy loading via intersection observer. It supports state machines, interactive events (URL navigation and cursor changes), and works with both the Pages Router and App Router.
+
+## Import
+
+```js copy
+import RiveAnimation from "@/components/organisms/RiveAnimation";
+```
+
+---
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `riveParams` | `RiveParams` | — | Configuration object for the Rive animation (see below) |
+| `isInteractive` | `boolean` | `false` | When `true`, listens for Rive events to handle URL redirects and pointer cursor changes |
+| `width` | `number \| string` | — | Width of the animation container |
+| `height` | `number \| string` | — | Height of the animation container |
+| `className` | `string` | `""` | Additional classes for the wrapper `div` |
+| `isAppRouter` | `boolean` | `false` | Set to `true` when using inside the App Router (`next/navigation`) instead of Pages Router (`next/router`) |
+
+### RiveParams
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `src` | `string` | Yes | Path to the `.riv` file |
+| `artboard` | `string` | No | Name of the artboard to display (defaults to the first artboard in the file) |
+| `stateMachines` | `string \| string[]` | No | State machine name(s) to use. Defaults to `"State Machine 1"` if not provided |
+
+---
+
+## Usage
+
+### Basic (non-interactive)
+
+```jsx copy
+<RiveAnimation
+  riveParams={{
+    src: "/animations/hero.riv",
+  }}
+/>
+```
+
+### With a specific artboard and state machine
+
+```jsx copy
+<RiveAnimation
+  riveParams={{
+    src: "/animations/hero.riv",
+    artboard: "Desktop",
+    stateMachines: "hover-state",
+  }}
+  className="w-full max-w-3xl"
+/>
+```
+
+### Interactive animation
+
+When `isInteractive` is enabled, the component listens for Rive events:
+
+- **`OpenUrl`** events trigger client-side navigation via Next.js router
+- **`pointer-on` / `pointer-off`** general events toggle between `cursor-pointer` and `cursor-default`
+
+```jsx copy
+<RiveAnimation
+  riveParams={{
+    src: "/animations/interactive-cta.riv",
+    stateMachines: "click-handler",
+  }}
+  isInteractive
+/>
+```
+
+---
+
+## How It Works
+
+1. The component uses `react-intersection-observer` to lazy-load — the Rive canvas only mounts when 20% of the container is visible
+2. The canvas auto-fits to the artboard height via `fitCanvasToArtboardHeight`
+3. Rive's WASM runtime is loaded from `@rive-app/canvas/rive.wasm`
+4. Interactive events are handled by subscribing to `EventType.RiveEvent` on the Rive instance
+
+---
+
+## Builder.io Usage
+
+The `RiveAnimation` component is registered in Builder as **"RiveAnimation"**. It supports child elements via `withChildren`.
+
+### Available Fields
+
+| Field | Type | Default | Visibility | Description |
+|-------|------|---------|------------|-------------|
+| **Rive Params** | Object | See sub-fields | Always | Configuration for the Rive animation |
+| &nbsp;&nbsp;**src** | String | — | Always | Path to the `.riv` file (e.g. `/animations/hero.riv`) |
+| &nbsp;&nbsp;**artboard** | String | `""` | Always | Artboard name within the `.riv` file (leave empty for default) |
+| &nbsp;&nbsp;**stateMachines** | String | `"state machine"` | Always | State machine name to activate |
+| **Is Interactive** | Boolean | `false` | Always | Enables click-to-navigate and pointer cursor behavior from Rive events |
+| **Width** | String | — | Always | Container width (e.g. `"100%"`, `"500px"`) |
+| **Height** | String | — | Always | Container height (e.g. `"400px"`) |
+| **Class Name** | Long Text | — | Always | Tailwind or custom CSS classes for the wrapper |
+
+### Quick Reference for Content Team
+
+1. **Insert** the RiveAnimation component from the Builder insert panel
+2. **Set the src** inside Rive Params to the path of your `.riv` file
+3. Optionally specify an **artboard** name if the `.riv` file contains multiple artboards
+4. Optionally specify a **state machine** name (defaults to `"state machine"`)
+5. Toggle **Is Interactive** on if the animation should handle click events for navigation
+6. Use **Width** and **Height** to control the container size, or use **Class Name** for Tailwind sizing (e.g. `w-full max-w-3xl`)
+7. Child elements can be placed inside the component if needed (it supports `withChildren`)

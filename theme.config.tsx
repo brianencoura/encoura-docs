@@ -4,6 +4,12 @@ import ColorCard from './components/ColorCard'
 
 const config: DocsThemeConfig = {
   logo: <span>Encoura</span>,
+  useNextSeoProps() {
+    return {
+      titleTemplate: '%s – Encoura Web Style Guide',
+      defaultTitle: 'Encoura Web Style Guide',
+    }
+  },
   project: {
     link: 'https://encoura.org',
   },

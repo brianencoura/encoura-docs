@@ -1,6 +1,17 @@
 # Things to Fix
 
-Buttons
+## Buttons
 1. Buttons have two padding-tops.
 2. Other buttons have arbitary text colors.
-3. Buttons have arbitary border radiuses. 
+3. Buttons have arbitary border radiuses.
+
+## Rive Animations
+1. **`width` and `height` props are unused** — They are accepted as props and exposed in Builder, but never applied to the container `div`. The component only uses `className` for styling. Either apply them as inline styles or remove them.
+2. **`stateMachines` default mismatch** — The Builder registration defaults to `"state machine"` (lowercase), but the component fallback is `"State Machine 1"` (title case with a number). These should match.
+3. **`isAppRouter` not exposed in Builder** — The component accepts an `isAppRouter` prop to switch between Pages Router and App Router, but it's not registered as a Builder input. Content team has no way to set it.
+4. **Conditional hook call** — `useRouter` is assigned conditionally based on `isAppRouter` (`isAppRouter ? useAppRouter : usePagesRouter`). This violates React's rules of hooks since the hook identity changes between renders. Consider calling both hooks unconditionally and selecting the result, or splitting into two components.
+5. **Builder `width`/`height` type mismatch** — Registered as `type: "string"` in Builder, but the TypeScript interface accepts `number | string`.
+
+## RichText
+1. **`defaultStyles: {}` in Builder registration** — The Builder registration passes an empty `defaultStyles` object, meaning no Builder-level default styles are applied. All styling relies on the component internals. Verify this is intentional and that the component handles all necessary base styles on its own.
+2. **No source verification** — The RichText component source (`@/components/atoms/RichText`) was not available for review. The documented props (`content`, `skipTypographyDefaults`, `className`) are based solely on the Builder registration and should be verified against the actual component.

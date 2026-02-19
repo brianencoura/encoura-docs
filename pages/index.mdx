@@ -1,3 +1,29 @@
 # Introduction
 
-This is Encoura's official web design system. Here you will find a breakdown of visual styles, elements, components, and guidelines for Encoura.org. 
+Welcome to Encoura's official web style guide — the single source of truth for how we build and maintain [encoura.org](https://encoura.org).
+
+This guide documents the visual styles, UI elements, components, and patterns used across the Encoura web platform. It is designed for **developers**, **designers**, and the **content team** working in Builder.io.
+
+## What's Inside
+
+- **Visual Styles** — Colors, typography, breakpoints, and other design tokens that define Encoura's visual language
+- **Elements** — Atomic UI components like Buttons, RichText, and Rive Animations, including their props, Tailwind classes, and Builder.io field references
+- **Components** — Higher-level composed components built from elements
+- **Layouts** — Page-level layout patterns and structural components
+- **Things to Fix** — Known issues and inconsistencies to address
+
+## For the Content Team
+
+Each element and component page includes a **Builder.io Usage** section with:
+- A table of every field available in the Builder visual editor
+- Which fields are always visible vs. hidden under Advanced
+- Default values and conditional visibility rules
+- A step-by-step quick reference for common tasks
+
+## Tech Stack
+
+- **Framework** — Next.js (Pages Router)
+- **Styling** — Tailwind CSS with custom config (custom colors, breakpoints, fonts)
+- **CMS** — Builder.io for visual content editing
+- **Variant Management** — class-variance-authority (CVA) + tailwind-merge
+- **Animations** — Rive (`@rive-app/react-canvas`)

@@ -1,0 +1,74 @@
+# RichText
+
+The `RichText` component renders Builder.io rich text content with Encoura's default typography styles. It supports HTML content from Builder's rich text editor and applies consistent heading, paragraph, list, and link styling out of the box.
+
+## Import
+
+```js copy
+import RichText from "@/components/atoms/RichText";
+```
+
+---
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `content` | `string` (HTML) | — | Rich text HTML content (typically from Builder's rich text field) |
+| `skipTypographyDefaults` | `boolean` | `false` | When `true`, skips the default typography styles. Useful when the RichText is nested inside another component that already provides typography styles (e.g. a Card) |
+| `className` | `string` | — | Additional classes applied to the wrapper element |
+
+---
+
+## Usage
+
+### Basic
+
+```jsx copy
+<RichText content="<h2>Welcome</h2><p>This is a paragraph with <strong>bold</strong> and <em>italic</em> text.</p>" />
+```
+
+### Skipping default typography
+
+When placing `RichText` inside a component that already handles typography (like a Card), use `skipTypographyDefaults` to avoid style conflicts.
+
+```jsx copy
+<Card>
+  <RichText
+    content="<p>Card body text styled by the parent.</p>"
+    skipTypographyDefaults
+  />
+</Card>
+```
+
+### With additional classes
+
+```jsx copy
+<RichText
+  content="<p>Custom styled content.</p>"
+  className="max-w-prose mx-auto"
+/>
+```
+
+---
+
+## Builder.io Usage
+
+The `RichText` component is registered in Builder as **"RichText"**. The content team can add it from the Insert panel in the Builder visual editor.
+
+### Available Fields
+
+| Field | Type | Default | Visibility | Description |
+|-------|------|---------|------------|-------------|
+| **Content** | Rich Text | Placeholder text | Always | The rich text content — use Builder's built-in rich text editor to add headings, paragraphs, lists, links, bold/italic text, etc. |
+| **Skip Typography Defaults** | Boolean | `false` | Always | Toggle on when placing the component inside another component that already provides typography styles (e.g. a Card) to avoid double-styling |
+| **Class Name** | String | — | Advanced | Additional CSS classes for the wrapper element |
+
+### Quick Reference for Content Team
+
+1. **Insert** the RichText component from the Builder insert panel
+2. **Click into the Content field** to open the rich text editor
+3. Use the editor toolbar to format text — headings, bold, italic, lists, links, etc.
+4. The component automatically applies Encoura's typography defaults (font sizes, line heights, colors, spacing)
+5. If the text looks "double-styled" inside a Card or similar wrapper, toggle **Skip Typography Defaults** on
+6. For custom spacing or width, expand **Advanced** and add classes to **Class Name**

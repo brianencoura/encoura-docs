@@ -1,0 +1,149 @@
+# Breadcrumbs
+
+The `Breadcrumbs` component generates a navigation trail based on the current URL path. It automatically splits the URL into segments, converts slugs to readable labels, and renders clickable links for each level. The last item is displayed as non-clickable text with an underline.
+
+## Import
+
+```js copy
+import Breadcrumbs from "@/components/molecules/Breadcrumbs";
+```
+
+---
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `baseItem` | `string` | `"Encoura"` | The label for the first breadcrumb (links to `/`) |
+| `labels` | `BreadcrumbsLabel[]` | — | Custom label overrides for specific path segments (see below) |
+| `topLevelItemsToExclude` | `BreadcrumbsTopLevelItemToExclude[]` | `["Solutions", "Resources", "Authors"]` | Path segments to hide from the breadcrumb trail |
+| `lastItemDisplay` | `string` | — | Custom display text for the last (current page) breadcrumb. If not set, the unslugified path segment is used |
+
+### BreadcrumbsLabel
+
+Used to override the auto-generated label for a path segment.
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `based` | `string` | The unslugified path segment to match (e.g. `"Digital Marketing"`) |
+| `changed` | `string` | The replacement label to display (e.g. `"DMS"`) |
+
+### BreadcrumbsTopLevelItemToExclude
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `itemName` | `string` | The unslugified name of a path segment to exclude from rendering |
+
+---
+
+## How It Works
+
+1. The component reads the current URL via `useRouter().asPath`
+2. The path is split into segments (query strings and hash fragments are stripped)
+3. Each segment is unslugified (e.g. `digital-marketing` becomes `Digital Marketing`)
+4. Segments matching `topLevelItemsToExclude` are filtered out
+5. Custom `labels` are applied if a match is found
+6. All segments except the last render as clickable `<Link>` elements
+7. The last segment renders as underlined text (current page)
+
+### Example Output
+
+For the URL `/solutions/digital-marketing/enrollment-lens`:
+
+```
+Encoura > Digital Marketing > Enrollment Lens
+```
+
+(`Solutions` is excluded by default)
+
+---
+
+## Usage
+
+### Default
+
+```jsx copy
+<Breadcrumbs />
+```
+
+Renders breadcrumbs from the current URL with default exclusions (`Solutions`, `Resources`, `Authors`).
+
+### Custom base item
+
+```jsx copy
+<Breadcrumbs baseItem="Home" />
+```
+
+### With label overrides
+
+```jsx copy
+<Breadcrumbs
+  labels={[
+    { based: "Digital Marketing Solutions", changed: "DMS" },
+    { based: "Enrollment Lens", changed: "EL" },
+  ]}
+/>
+```
+
+### Custom exclusions
+
+```jsx copy
+<Breadcrumbs
+  topLevelItemsToExclude={[
+    { itemName: "Solutions" },
+    { itemName: "Resources" },
+    { itemName: "Authors" },
+    { itemName: "Blog" },
+  ]}
+/>
+```
+
+### Custom last item display
+
+```jsx copy
+<Breadcrumbs lastItemDisplay="Current Page Title" />
+```
+
+---
+
+## Styling
+
+The breadcrumb bar uses a light gray background with small text:
+
+```text copy
+bg-section-gray py-5 text-sm text-gray-500 overflow-hidden
+```
+
+Each breadcrumb link uses:
+
+```text copy
+hover:underline underline-offset-4 font-semibold
+```
+
+Chevron separators between items are styled with:
+
+```text copy
+stroke-navy-blue flex-shrink-0 self-center
+```
+
+---
+
+## Builder.io Usage
+
+The `Breadcrumbs` component is registered in Builder as **"Breadcrumbs"**.
+
+### Available Fields
+
+| Field | Type | Default | Visibility | Description |
+|-------|------|---------|------------|-------------|
+| **Base Item** | String | `"Encoura"` | Always | The label for the first breadcrumb link (points to `/`) |
+| **Top Level Items to Exclude** | List | — | Always | Path segments to hide from the trail. Each entry has an `itemName` string field |
+| **Labels** | List | — | Advanced | Custom label overrides. Each entry has `based` (the segment to match) and `changed` (the replacement text) |
+
+### Quick Reference for Content Team
+
+1. **Insert** the Breadcrumbs component from the Builder insert panel
+2. It will automatically generate breadcrumbs from the current page URL — no configuration needed in most cases
+3. To change the root label from "Encoura", update the **Base Item** field
+4. To hide a path segment (e.g. a category like "Solutions"), add it to **Top Level Items to Exclude**
+5. To rename a path segment (e.g. show "DMS" instead of "Digital Marketing Solutions"), expand **Advanced** and add an entry to **Labels**
