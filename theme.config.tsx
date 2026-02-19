@@ -3,7 +3,7 @@ import { DocsThemeConfig } from 'nextra-theme-docs'
 import ColorCard from './components/ColorCard'
 
 const config: DocsThemeConfig = {
-  logo: <span>Encoura</span>,
+  logo: <span className="text-lg font-bold">Encoura</span>,
   useNextSeoProps() {
     return {
       titleTemplate: '%s – Encoura Web Style Guide',

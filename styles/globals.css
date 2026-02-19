@@ -1,3 +1,44 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Navbar gradient */
+.nextra-nav-container {
+  background: linear-gradient(180deg, #003359 0%, #1E9C8A 100%) !important;
+}
+
+.nextra-nav-container-blur {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.nextra-nav-container nav {
+  background: transparent !important;
+}
+
+.nextra-nav-container nav a,
+.nextra-nav-container nav button,
+.nextra-nav-container nav span,
+.nextra-nav-container nav p,
+.nextra-nav-container nav svg {
+  color: white !important;
+  fill: white;
+}
+
+.nextra-nav-container nav input {
+  background-color: rgba(255, 255, 255, 0.15) !important;
+  color: white !important;
+  border-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+.nextra-nav-container nav input::placeholder {
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+
+/* Heading colors — navy blue */
+article h1,
+article h2,
+article h3,
+article h4 {
+  color: #003359 !important;
+}
